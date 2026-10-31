@@ -1,0 +1,99 @@
+@if (ui.isSnippetsModalOpen()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs">
+    <div
+      class="w-full max-w-2xl rounded-xl shadow-2xl border p-5 text-xs flex flex-col max-h-[85vh] animate-in fade-in zoom-in-95"
+      [class]="editor.isDarkMode() ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-white border-slate-200 text-slate-800'"
+    >
+      <!-- Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-700">
+        <div>
+          <h3 class="font-bold text-sm flex items-center space-x-2">
+            <span>Custom Text Replacement Rules</span>
+          </h3>
+          <p class="text-slate-400 text-[11px] mt-0.5">Define trigger patterns that instantly expand into rich text snippets as you type.</p>
+        </div>
+        <button (click)="closeModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-sm">✕</button>
+      </div>
+
+      <!-- Create New Rule Input Row -->
+      <div class="py-3 border-b border-slate-200 dark:border-slate-700 space-y-2">
+        <span class="font-bold text-[11px] text-sky-500 uppercase tracking-wider block">Add New Replacement Rule</span>
+        <div class="grid grid-cols-12 gap-2">
+          <input
+            type="text"
+            [(ngModel)]="newRuleTrigger"
+            placeholder="Trigger (e.g. :email:)"
+            class="col-span-3 px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-transparent focus:outline-none focus:ring-1 focus:ring-sky-500 font-mono"
+          />
+          <input
+            type="text"
+            [(ngModel)]="newRuleReplacement"
+            placeholder="Replacement (e.g. user@domain.com)"
+            class="col-span-5 px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-transparent focus:outline-none focus:ring-1 focus:ring-sky-500 font-mono"
+          />
+          <input
+            type="text"
+            [(ngModel)]="newRuleDescription"
+            placeholder="Description"
+            class="col-span-3 px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-transparent focus:outline-none focus:ring-1 focus:ring-sky-500"
+          />
+          <button
+            (click)="addNewRule()"
+            class="col-span-1 px-2 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-center flex items-center justify-center"
+            title="Add Rule"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Rules List -->
+      <div class="flex-1 overflow-y-auto py-3 space-y-2">
+        @for (rule of snippets.snippetRules(); track rule.id) {
+          <div
+            class="flex items-center justify-between p-2.5 rounded-lg border transition-all"
+            [class]="rule.enabled ? (editor.isDarkMode() ? 'bg-slate-700/50 border-slate-600' : 'bg-slate-50 border-slate-200') : 'opacity-50 bg-slate-100 dark:bg-slate-800 border-transparent'"
+          >
+            <div class="flex items-center space-x-3 flex-1 overflow-hidden">
+              <input
+                type="checkbox"
+                [checked]="rule.enabled"
+                (change)="toggleRule(rule.id)"
+                class="rounded text-sky-500 cursor-pointer"
+              />
+              <div class="font-mono font-bold text-sky-500 shrink-0 px-2 py-0.5 rounded bg-sky-500/10">
+                {{ rule.trigger }}
+              </div>
+              <span class="text-slate-400">→</span>
+              <div class="font-mono text-slate-700 dark:text-slate-200 truncate flex-1">
+                "{{ rule.replacement }}"
+              </div>
+              <div class="text-[10px] text-slate-400 shrink-0 italic max-w-[120px] truncate">
+                {{ rule.description }}
+              </div>
+            </div>
+
+            <button
+              (click)="deleteRule(rule.id)"
+              class="ml-3 p-1 text-slate-400 hover:text-rose-500 transition-colors"
+              title="Delete Rule"
+            >
+              ✕
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- Footer -->
+      <div class="pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
+        <button (click)="resetDefaults()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 underline">
+          Reset Default Snippets
+        </button>
+        <button (click)="closeModal()" class="px-4 py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-medium">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+}
+

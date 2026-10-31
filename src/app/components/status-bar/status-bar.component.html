@@ -1,0 +1,22 @@
+<footer
+  class="flex items-center justify-between px-3 py-1 border-t text-[11px] font-mono select-none shrink-0"
+  [class]="editor.isDarkMode() ? 'bg-slate-800 border-slate-700 text-slate-400' : 'bg-slate-100 border-slate-200 text-slate-600'"
+>
+  <!-- Left Status details -->
+  <div class="flex items-center space-x-4">
+    <div>Ln {{ editor.currentLineNumber() }}, Col {{ editor.currentColNumber() }}</div>
+    <div>{{ editor.charCount() }} chars</div>
+    <div>{{ editor.wordCount() }} words</div>
+    @if (editor.selectionLength() > 0) {
+      <div class="text-sky-500 font-semibold">({{ editor.selectionLength() }} selected)</div>
+    }
+  </div>
+
+  <!-- Right Status details -->
+  <div class="flex items-center space-x-4">
+    <div>UTF-8</div>
+    <div>Windows (CRLF)</div>
+    <div>{{ editor.zoomLevel() }}%</div>
+  </div>
+</footer>
+

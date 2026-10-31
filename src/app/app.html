@@ -1,0 +1,41 @@
+<div
+  [class]="editor.isDarkMode() ? 'bg-slate-900 text-slate-100 dark' : 'bg-slate-50 text-slate-800'"
+  class="flex flex-col h-screen w-screen overflow-hidden font-sans select-none transition-colors duration-200"
+>
+  <!-- TOP MENU BAR -->
+  <app-header (openFileInput)="triggerFileInput()" />
+
+  <!-- TOOLBAR -->
+  <app-toolbar (openFileInput)="triggerFileInput()" />
+
+  <!-- MAIN EDITOR WORKSPACE -->
+  <div class="flex-1 min-h-0 min-w-0 relative flex overflow-hidden w-full h-full">
+    <app-editor class="flex-1 min-w-0 min-h-0 h-full flex" />
+
+    @if (editor.enableCaretInspector() && editor.showCaretInspector()) {
+      <app-caret-inspector class="h-full shrink-0 flex" />
+    }
+  </div>
+
+  <!-- STATUS BAR (BOTTOM) -->
+  @if (editor.showStatusBar()) {
+    <app-status-bar />
+  }
+
+  <!-- CUSTOM RIGHT-CLICK CONTEXT MENU -->
+  <app-context-menu />
+
+  <!-- MODALS -->
+  <app-find-modal />
+  <app-snippets-modal />
+  <app-about-modal />
+
+  <!-- HIDDEN FILE INPUT FOR OPEN FILE -->
+  <input
+    #fileInput
+    type="file"
+    accept=".txt,.md,.json,.js,.ts,.html,.css,.csv"
+    class="hidden"
+    (change)="onFileSelected($event)"
+  />
+</div>

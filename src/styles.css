@@ -1,0 +1,52 @@
+
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Global styles */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+app-editor {
+  display: flex;
+  flex: 1 1 0%;
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Smooth scroll & styled scrollbars */
+textarea::-webkit-scrollbar,
+div::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+textarea::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+textarea::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.4);
+  border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover,
+div::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.7);
+}

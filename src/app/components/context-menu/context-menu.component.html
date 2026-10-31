@@ -1,0 +1,40 @@
+@if (ui.contextMenu().visible) {
+  <div
+    class="fixed z-50 w-52 rounded-lg shadow-2xl border py-1.5 text-xs animate-in fade-in zoom-in-95 duration-100"
+    [class]="editor.isDarkMode() ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-white border-slate-200 text-slate-700'"
+    [style.left.px]="ui.contextMenu().x"
+    [style.top.px]="ui.contextMenu().y"
+    (click)="$event.stopPropagation()"
+  >
+    <button (click)="onCut()" class="w-full text-left px-3 py-1.5 hover:bg-sky-500 hover:text-white flex justify-between">
+      <span>Cut</span>
+      <span class="text-slate-400 text-[10px]">Ctrl+X</span>
+    </button>
+    <button (click)="onCopy()" class="w-full text-left px-3 py-1.5 hover:bg-sky-500 hover:text-white flex justify-between">
+      <span>Copy</span>
+      <span class="text-slate-400 text-[10px]">Ctrl+C</span>
+    </button>
+    <button (click)="onPaste()" class="w-full text-left px-3 py-1.5 hover:bg-sky-500 hover:text-white flex justify-between">
+      <span>Paste</span>
+      <span class="text-slate-400 text-[10px]">Ctrl+V</span>
+    </button>
+    <div class="my-1 border-t border-slate-200 dark:border-slate-700"></div>
+    <button (click)="onSelectLine()" class="w-full text-left px-3 py-1.5 hover:bg-sky-500 hover:text-white">
+      Select Line
+    </button>
+    <button (click)="onUppercaseWord()" class="w-full text-left px-3 py-1.5 hover:bg-sky-500 hover:text-white">
+      Uppercase Surrounding Word
+    </button>
+    <button (click)="onLowercaseWord()" class="w-full text-left px-3 py-1.5 hover:bg-sky-500 hover:text-white">
+      Lowercase Surrounding Word
+    </button>
+    <div class="my-1 border-t border-slate-200 dark:border-slate-700"></div>
+    <button (click)="onInsertTimestamp()" class="w-full text-left px-3 py-1.5 hover:bg-sky-500 hover:text-white">
+      Insert Timestamp (F5)
+    </button>
+    <button (click)="onClear()" class="w-full text-left px-3 py-1.5 hover:bg-rose-500 hover:text-white text-rose-500">
+      Clear Entire Document
+    </button>
+  </div>
+}
+

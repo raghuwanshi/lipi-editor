@@ -1,0 +1,23 @@
+@if (ui.isAboutModalOpen()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs">
+    <div
+      class="w-96 rounded-xl shadow-2xl border p-5 text-xs text-center animate-in fade-in zoom-in-95"
+      [class]="editor.isDarkMode() ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-white border-slate-200 text-slate-800'"
+    >
+      <div class="w-12 h-12 mx-auto mb-2 text-sky-500 bg-sky-500/10 rounded-full flex items-center justify-center">
+        <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+        </svg>
+      </div>
+      <h2 class="text-base font-bold text-slate-800 dark:text-slate-100">Lipi Editor</h2>
+      <p class="text-slate-400 text-[11px] mt-0.5">Built with Angular Signals & Tailwind CSS</p>
+      <p class="my-4 text-slate-600 dark:text-slate-300 leading-relaxed text-left">
+        An extended, feature-rich text editor equipped with real-time caret text tracking, live snippet macro expansions, fine-grained text transformations, and customizable replacement rules.
+      </p>
+      <button (click)="closeModal()" class="w-full py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-medium">
+        Close
+      </button>
+    </div>
+  </div>
+}
+

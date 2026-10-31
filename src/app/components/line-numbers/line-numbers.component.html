@@ -1,0 +1,13 @@
+<div
+  #lineGutter
+  class="w-12 h-full select-none shrink-0 border-r text-right pr-2 pt-2 font-mono text-xs leading-normal opacity-50 overflow-hidden"
+  [class]="editor.isDarkMode() ? 'bg-slate-800/40 border-slate-700 text-slate-400' : 'bg-slate-100/70 border-slate-200 text-slate-400'"
+  [style.font-size.px]="editor.fontSize()"
+  [style.line-height]="'1.5'"
+>
+  @for (line of editor.lineNumbersArray(); track $index) {
+    <div [class.text-sky-500]="line === editor.currentLineNumber()" [class.font-bold]="line === editor.currentLineNumber()">
+      {{ line }}
+    </div>
+  }
+</div>

@@ -1,0 +1,31 @@
+<!-- Line Numbers Gutter -->
+@if (editor.showLineNumbers()) {
+  <app-line-numbers />
+}
+
+<!-- Code / Text Editor Textarea -->
+<div class="flex-1 h-full w-full min-w-0 min-h-0 relative overflow-hidden">
+  <textarea
+    name="text-area-name"
+    autocomplete="off"
+    #editorArea
+    [value]="editor.text()"
+    (input)="onEditorInput($event)"
+    (keyup)="updateCaretPosition()"
+    (click)="updateCaretPosition()"
+    (select)="updateCaretPosition()"
+    (scroll)="syncGutterScroll()"
+    (contextmenu)="onContextMenu($event)"
+    (keydown)="onKeyDown($event)"
+    [placeholder]="'Start typing here... Try auto-snippets like :date:, :time:, :shrug:, :todo:'"
+    class="w-full h-full p-2 bg-transparent resize-none outline-none font-mono leading-normal transition-all"
+    [class.whitespace-pre]="!editor.wordWrap()"
+    [class.whitespace-pre-wrap]="editor.wordWrap()"
+    [style.font-family]="editor.fontFamily()"
+    [style.font-size.px]="editor.fontSize()"
+    [style.line-height]="'1.5'"
+    [style.transform]="'scale(' + editor.zoomLevel() / 100 + ')'"
+    [style.transform-origin]="'top left'"
+    spellcheck="false"
+  ></textarea>
+</div>
