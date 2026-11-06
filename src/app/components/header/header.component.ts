@@ -36,6 +36,9 @@ export class HeaderComponent {
 
   toggleMenu(name: string, event: MouseEvent): void {
     event.stopPropagation();
-    this.ui.toggleMenu(name);
+    if (event.type !== "mouseover"
+      || (this.ui.activeMenu() !== null
+        && this.ui.activeMenu() !== name))
+      this.ui.toggleMenu(name);
   }
 }
