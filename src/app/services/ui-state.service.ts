@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { ContextMenuPosition } from '../models/context-menu.model';
+import * as EC from '../constants/editor.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +28,8 @@ export class UiStateService {
 
   openContextMenu(x: number, y: number): void {
     this.contextMenu.set({
-      x: Math.min(x, window.innerWidth - 220),
-      y: Math.min(y, window.innerHeight - 300),
+      x: Math.min(x, window.innerWidth - EC.CONTEXT_MENU_ESTIMATED_WIDTH),
+      y: Math.min(y, window.innerHeight - EC.CONTEXT_MENU_ESTIMATED_HEIGHT),
       visible: true,
     });
   }

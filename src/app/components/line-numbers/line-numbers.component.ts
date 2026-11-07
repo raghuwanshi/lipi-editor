@@ -27,4 +27,8 @@ export class LineNumbersComponent {
       this.lineGutter.nativeElement.scrollTop = scrollTop;
     }
   }
+
+  onLineClick(lineNumber: number): void {
+    this.editor.goToLine(lineNumber);
+  }
 }

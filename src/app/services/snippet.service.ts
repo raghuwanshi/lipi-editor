@@ -1,6 +1,13 @@
 import { Injectable, signal } from '@angular/core';
 import { DEFAULT_SNIPPET_RULES, SnippetRule } from '../models/snippet-rule.model';
 
+export interface SnippetMatch {
+  start: number;
+  end: number;
+  trigger: string;
+  replacement: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -60,16 +67,15 @@ export class SnippetService {
     return null;
   }
 
-  checkAndApplySnippet(text: string, caretPos: number): { text: string; newPos: number } | null {
+  findMatchingSnippet(textBeforeCaret: string, caretPos: number): SnippetMatch | null {
     if (!this.autoReplaceEnabled()) {
       return null;
     }
 
-    const before = text.substring(0, caretPos);
     const activeRules = this.snippetRules().filter((r) => r.enabled);
 
     for (const rule of activeRules) {
-      if (before.endsWith(rule.trigger)) {
+      if (textBeforeCaret.endsWith(rule.trigger)) {
         const replacement =
           rule.trigger === ':date:'
             ? new Date().toISOString().split('T')[0]
@@ -78,12 +84,24 @@ export class SnippetService {
             : rule.replacement;
 
         const triggerStart = caretPos - rule.trigger.length;
-        const newText = text.substring(0, triggerStart) + replacement + text.substring(caretPos);
-        const newPos = triggerStart + replacement.length;
-        return { text: newText, newPos };
+        return {
+          start: triggerStart,
+          end: caretPos,
+          trigger: rule.trigger,
+          replacement,
+        };
       }
     }
     return null;
   }
-}
 
+  checkAndApplySnippet(text: string, caretPos: number): { text: string; newPos: number } | null {
+    const match = this.findMatchingSnippet(text.substring(0, caretPos), caretPos);
+    if (!match) {
+      return null;
+    }
+    const newText = text.substring(0, match.start) + match.replacement + text.substring(match.end);
+    const newPos = match.start + match.replacement.length;
+    return { text: newText, newPos };
+  }
+}

@@ -4,6 +4,7 @@ import { EditorService } from '../../services/editor.service';
 import { UiStateService } from '../../services/ui-state.service';
 import { SnippetService } from '../../services/snippet.service';
 import { FONT_OPTIONS } from '../../models/editor-options.model';
+import * as EC from '../../constants/editor.constants';
 
 @Component({
   selector: 'app-header',
@@ -27,6 +28,7 @@ export class HeaderComponent {
   protected readonly snippets = inject(SnippetService);
 
   readonly fontOptions = FONT_OPTIONS;
+  readonly zoomStep = EC.ZOOM_STEP;
   readonly openFileInput = output<void>();
 
   triggerFileInput(): void {

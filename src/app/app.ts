@@ -18,6 +18,7 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
 import { FindModalComponent } from './components/modals/find-modal/find-modal.component';
 import { SnippetsModalComponent } from './components/modals/snippets-modal/snippets-modal.component';
 import { AboutModalComponent } from './components/modals/about-modal/about-modal.component';
+import * as EC from './constants/editor.constants';
 
 @Component({
   selector: 'app-root',
@@ -88,11 +89,11 @@ export class App {
         case '=':
         case '+':
           event.preventDefault();
-          this.editor.changeZoom(10);
+          this.editor.changeZoom(EC.ZOOM_STEP);
           break;
         case '-':
           event.preventDefault();
-          this.editor.changeZoom(-10);
+          this.editor.changeZoom(-EC.ZOOM_STEP);
           break;
         case '0':
           event.preventDefault();

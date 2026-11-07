@@ -1,13 +1,20 @@
 <div
   #lineGutter
-  class="w-12 h-full select-none shrink-0 border-r text-right pr-2 pt-2 font-mono text-xs leading-normal opacity-50 overflow-hidden"
+  class="min-w-12 w-auto h-full select-none shrink-0 border-r text-right pr-2 pl-2 pt-2 pb-2 font-mono leading-normal opacity-50 overflow-hidden"
   [class]="editor.isDarkMode() ? 'bg-slate-800/40 border-slate-700 text-slate-400' : 'bg-slate-100/70 border-slate-200 text-slate-400'"
-  [style.font-size.px]="editor.fontSize()"
-  [style.line-height]="'1.5'"
+  [style.font-size.px]="editor.effectiveFontSize()"
+  [style.line-height]="editor.lineHeight"
 >
-  @for (line of editor.lineNumbersArray(); track $index) {
-    <div [class.text-sky-500]="line === editor.currentLineNumber()" [class.font-bold]="line === editor.currentLineNumber()">
-      {{ line }}
+  @for (item of editor.lineNumbersInfo(); track item.lineNumber) {
+    <div
+      [style.height.px]="item.height"
+      [class.text-sky-500]="item.lineNumber === editor.currentLineNumber()"
+      [class.font-bold]="item.lineNumber === editor.currentLineNumber()"
+      class="overflow-hidden leading-normal cursor-pointer hover:opacity-100 transition-opacity"
+      (click)="onLineClick(item.lineNumber)"
+      [title]="'Line ' + item.lineNumber + (item.visualLines > 1 ? ' (' + item.visualLines + ' lines)' : '')"
+    >
+      {{ item.lineNumber }}
     </div>
   }
 </div>

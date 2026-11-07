@@ -18,14 +18,20 @@
     (contextmenu)="onContextMenu($event)"
     (keydown)="onKeyDown($event)"
     [placeholder]="'Start typing here... Try auto-snippets like :date:, :time:, :shrug:, :todo:'"
-    class="w-full h-full p-2 bg-transparent resize-none outline-none font-mono leading-normal transition-all"
+    class="w-full h-full p-2 bg-transparent resize-none outline-none font-mono leading-normal transition-colors"
     [class.whitespace-pre]="!editor.wordWrap()"
     [class.whitespace-pre-wrap]="editor.wordWrap()"
     [style.font-family]="editor.fontFamily()"
-    [style.font-size.px]="editor.fontSize()"
-    [style.line-height]="'1.5'"
-    [style.transform]="'scale(' + editor.zoomLevel() / 100 + ')'"
-    [style.transform-origin]="'top left'"
+    [style.font-size.px]="editor.effectiveFontSize()"
+    [style.line-height]="editor.lineHeight"
     spellcheck="false"
   ></textarea>
+
+  <!-- Hidden Offscreen Layout Mirror for Measuring Word-Wrapped Lines -->
+  <div
+    #mirrorElement
+    aria-hidden="true"
+    class="absolute -top-[99999px] -left-[99999px] invisible pointer-events-none overflow-hidden select-none"
+    style="white-space: pre-wrap; word-break: break-word; overflow-wrap: break-word; box-sizing: border-box;"
+  ></div>
 </div>
