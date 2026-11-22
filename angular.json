@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "Editor": {
+    "lipi-editor": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -42,7 +42,19 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": true
+              },
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true
             },
             "development": {
               "optimization": false,
@@ -56,10 +68,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Editor:build:production"
+              "buildTarget": "lipi-editor:build:production"
             },
             "development": {
-              "buildTarget": "Editor:build:development"
+              "buildTarget": "lipi-editor:build:development"
             }
           },
           "defaultConfiguration": "development"
